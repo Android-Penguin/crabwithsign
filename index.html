@@ -20,7 +20,7 @@
             <!-- Layer 2: Cardboard sign div -->
             <div id="sign-container">
                 <span id="sign-text">
-                    Crab with sign
+                    
                 </span>
                 <div id="click-target"></div>
             </div>
@@ -32,24 +32,55 @@
     <!-- ########### -->
     <!-- # Scripts # -->
     <!-- ########### -->
+    <script src="https://dl.dropboxusercontent.com/s/5ovlomby84emaio/crab_text.js"></script>
     <script>
         const changeTextBtn = document.getElementById("click-target")
         const signText = document.getElementById("sign-text")
         const params = new URLSearchParams(window.location.search)
+        let dropboxMode = false
+        let previousText = dropboxText
 
+        // Change sign contents on page load
         window.addEventListener("load", () => {
             if(params.has("txt")) {
                 console.log("txt =", params.get("txt"))
                 signText.innerHTML = params.get("txt")
             }
+            if(params.has("dropbox")) {
+                if(params.get("dropbox") == "true") {
+                    dropboxMode = true
+                    params.set("txt", dropboxText)
+                    signText.innerHTML = dropboxText
+                    console.log("dropbox load")
+                    changeText()
+                }
+            }
         })
 
+        function changeText() {
+            console.log("run")
+            if(dropboxMode) {
+                setTimeout(() => {
+                    window.location.search = params.toString();
+                }, 1000);
+            }
+        }
+
+        // Prompt for text on sign click
         changeTextBtn.addEventListener("click", () => {
             console.log("clicked")
             let input = window.prompt("Enter text:", "Crab with sign")
             if(input === null) {
                 return
+            } else if(input.toLowerCase() == "dropbox") {
+                dropboxMode = true
+                params.set("dropbox", "true")
+                console.log("Activating dropbox mode")
+                params.set("txt", input)
+                window.location.search = params.toString();
             } else {
+                dropboxMode = false
+                params.set("dropbox", "false")
                 params.set("txt", input)
                 window.location.search = params.toString();
             }

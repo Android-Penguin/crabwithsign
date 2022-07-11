@@ -51,6 +51,7 @@ img {
 /* ############# */
 /* Div containing background image */
 #sign-container {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,8 +77,21 @@ img {
         max-width: 90vw;
     }
 }
-
+/* Text displayed in container */
 #sign-container span {
     font-family: 'Permanent Marker', cursive;
     font-size: var(--fontSize);
+}
+/* Phantom div used as click target */
+#click-target {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+#click-target:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    cursor: pointer;
 }

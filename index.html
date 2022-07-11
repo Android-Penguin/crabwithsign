@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crab With Sign</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="icon" href="./crab_icon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins&display=swap" rel="stylesheet">
@@ -18,13 +19,41 @@
             <img id="bg-lower" src="./background_lower.png">
             <!-- Layer 2: Cardboard sign div -->
             <div id="sign-container">
-                <span>
+                <span id="sign-text">
                     Crab with sign
                 </span>
+                <div id="click-target"></div>
             </div>
             <!-- Layer 3: Crab Overlay -->
             <img id="crab-overlay" src="./overlay_upper.png">
         </div>
     </div>
+
+    <!-- ########### -->
+    <!-- # Scripts # -->
+    <!-- ########### -->
+    <script>
+        const changeTextBtn = document.getElementById("click-target")
+        const signText = document.getElementById("sign-text")
+        const params = new URLSearchParams(window.location.search)
+
+        window.addEventListener("load", () => {
+            if(params.has("txt")) {
+                console.log("txt =", params.get("txt"))
+                signText.innerHTML = params.get("txt")
+            }
+        })
+
+        changeTextBtn.addEventListener("click", () => {
+            console.log("clicked")
+            let input = window.prompt("Enter text:", "Crab with sign")
+            if(input === null) {
+                return
+            } else {
+                params.set("txt", input)
+                window.location.search = params.toString();
+            }
+        })
+    </script>
 </body>
 </html>

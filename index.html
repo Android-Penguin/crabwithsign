@@ -32,13 +32,14 @@
     <!-- ########### -->
     <!-- # Scripts # -->
     <!-- ########### -->
-    <script src="https://dl.dropboxusercontent.com/s/5ovlomby84emaio/crab_text.js"></script>
+    <!-- <script src="https://dl.dropboxusercontent.com/s/5ovlomby84emaio/crab_text.js"></script> -->
     <script>
         const changeTextBtn = document.getElementById("click-target")
         const signText = document.getElementById("sign-text")
         const params = new URLSearchParams(window.location.search)
         let dropboxMode = false
         let previousText = dropboxText
+        let dropboxText = ""
 
         // Change sign contents on page load
         window.addEventListener("load", () => {
